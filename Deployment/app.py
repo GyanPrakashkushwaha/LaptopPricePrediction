@@ -3,9 +3,8 @@ import pickle
 import numpy as np
 
 # import the model
-model = pickle.load(open('notebook/model/model.pkl','rb'))
+model = pickle.load(open('notebook/model/preprocess_model.pkl','rb'))
 df = pickle.load(open('notebook/model/df.pkl','rb'))
-preprocessor = pickle.load(open('notebook/model/preprocessor.pkl',mode='rb'))
 
 st.title("Laptop Predictor")
 
