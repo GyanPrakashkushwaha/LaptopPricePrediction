@@ -1,24 +1,24 @@
-from logger import logging
+from src.logger import logging
 import sys
 
 def errorMSG(error,error_detail:sys):
     _,_,exc_tb = error_detail.exc_info()
 
     file_name = exc_tb.tb_frame.f_code.co_filename
-    
-    file_name = exc_tb.tb_frame.f_code.co_filename
-    error_msg = f"Error occured in python script name [{file_name}] line number [{exc_tb.tb_lineno}] error message [{str(error)}]"
+
+    line_no = exc_tb.tb_lineno
+
+    error_msg = f"Error occured in python file name [{file_name}] line number [{line_no}] error message [{str(error)}]"
 
     return error_msg
 
 class CustomException(Exception):
     def __init__(self, error_msg,error_detail:sys) -> None:
-        super().__init__(error_msg)
         self.error_msg = errorMSG(error=error_msg,error_detail=error_detail)
 
     def __str__(self) -> str:
         return self.error_msg
-
+    
 
 if __name__ == "__main__":
     try:

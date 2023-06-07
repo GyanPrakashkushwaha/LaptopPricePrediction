@@ -1,1 +1,6 @@
+-e .
 # -e .
+pandas
+numpy
+seaborn
+
