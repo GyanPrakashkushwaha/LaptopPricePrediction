@@ -19,3 +19,8 @@ class DataTransformationConfig:
     transformed_test_file_path=os.path.join(data_transformation_dir, 'test.npy') 
     transformed_object_file_path=os.path.join( data_transformation_dir, 'preprocessing.pkl' )
 
+
+@dataclass
+class ModelTrainerConfig:
+    trained_models_dir = os.path.join('Data-WereHouse','Models')
+    trained_model_file_path = os.path.join(trained_models_dir,'model.pkl')

@@ -72,6 +72,7 @@ class DataTransformation:
 
         return encoding_obj
 
+
         
     def initiate_data_transformation(self):
 
