@@ -12,3 +12,10 @@ class DataCollectionConfig:
     test_data_path = os.path.join('Data-WareHouse','testData.csv')
 
 
+@dataclass
+class DataTransformationConfig:
+    data_transformation_dir=os.path.join('Data-WareHouse','data_transformation')
+    transformed_train_file_path=os.path.join(data_transformation_dir, 'train.npy')
+    transformed_test_file_path=os.path.join(data_transformation_dir, 'test.npy') 
+    transformed_object_file_path=os.path.join( data_transformation_dir, 'preprocessing.pkl' )
+
