@@ -22,5 +22,4 @@ class DataTransformationConfig:
 
 @dataclass
 class ModelTrainerConfig:
-    trained_models_dir = os.path.join('Data-WereHouse','Models')
-    trained_model_file_path = os.path.join(trained_models_dir,'model.pkl')
+    trained_model_file_path = os.path.join('Data-WareHouse','model.pkl')

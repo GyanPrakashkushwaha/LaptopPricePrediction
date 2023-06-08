@@ -19,12 +19,16 @@ import warnings
 warnings.filterwarnings('ignore')
 from src.logger import logging
 import pandas as pd
-
+from src.utils import MainUtils
+from src.Components.Data_Classes import ModelTrainerConfig
 
 class ModelTrainer:
 
     def __init__(self,train_arr,test_arr):
-        
+
+        self.utils = MainUtils()
+        self.model_trainer_config = ModelTrainerConfig
+
         self.models = {
             "Random Forest": RandomForestRegressor(),
             "Gradient Boosting": GradientBoostingRegressor(),
@@ -111,14 +115,16 @@ class ModelTrainer:
 
             logging.info(f'the best and and its list is{pd.DataFrame(list(zip(list(self.models.keys()),self.accuracy_list)),columns=["model","accuracy"])}')
 
-            best_model = max(list(zip(self.model_list, self.accuracy_list)))
-            
+            best_model_name = max(list(zip(self.model_list, self.accuracy_list)))[0]
 
-            
+            best_model = self.models[best_model_name]
 
-            return print(list(zip(self.model_list, self.accuracy_list)))
+            self.utils.save_obj(file_path=self.model_trainer_config.trained_model_file_path,obj=best_model)
+
+            return (
+                best_model
+            )
                     
-
         except Exception as e:
             raise CustomException(e, sys)
     
