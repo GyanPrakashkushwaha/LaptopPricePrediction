@@ -111,6 +111,11 @@ class ModelTrainer:
 
             logging.info(f'the best and and its list is{pd.DataFrame(list(zip(list(self.models.keys()),self.accuracy_list)),columns=["model","accuracy"])}')
 
+            best_model = max(list(zip(self.model_list, self.accuracy_list)))
+            
+
+            
+
             return print(list(zip(self.model_list, self.accuracy_list)))
                     
 
