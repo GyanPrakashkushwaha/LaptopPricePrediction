@@ -3,7 +3,10 @@ import pickle
 import numpy as np
 import pandas as pd
 
-
+# Load the trained model and data
+model = pickle.load(open('Data-WareHouse\model.pkl', 'rb'))
+df = pd.read_pickle('Data-WareHouse\data.pkl')
+preprocessor = pickle.load(open('Data-WareHouse\data_transformation\preprocessing.pkl', 'rb'))
 
 st.title("Laptop Predictor")
 
@@ -46,3 +49,26 @@ gpu = st.selectbox('GPU', df['Gpu_brand'].unique())
 
 # OS
 os = st.selectbox('OS', df['Os'].unique())
+
+if st.button('Predict Price'):
+    # Preprocess the input data
+    touchscreen_value = 1 if touchscreen == 'Yes' else 0
+    ips_value = 1 if ips == 'Yes' else 0
+
+    X_res = int(resolution.split('x')[0])
+    Y_res = int(resolution.split('x')[1])
+    ppi = ((X_res ** 2) + (Y_res ** 2)) ** 0.5 / screen_size
+
+    query = np.array([company, laptop_type, ram, weight, touchscreen_value, ips_value, ppi, cpu, hdd, ssd, gpu, os])
+    query_df = pd.DataFrame(data=[query], columns=df.columns.drop('Price'))
+
+    # Select only the relevant columns from the query_df
+    query_df = query_df[df.columns.drop('Price')]
+
+    # Perform preprocessing on the query data
+    query_transformed = preprocessor.transform(query_df)
+
+    # Perform prediction using the model
+    predicted_price = np.exp(model.predict(query_transformed))[0]
+
+    st.title(f"The predicted price of this configuration is {str(int(predicted_price))} Thousand")
