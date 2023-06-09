@@ -10,6 +10,7 @@ class DataCollectionConfig:
     raw_data_path = os.path.join('Data-WareHouse','data.csv')
     train_data_path = os.path.join('Data-WareHouse','trainData.csv')
     test_data_path = os.path.join('Data-WareHouse','testData.csv')
+    predicton_data_path = os.path.join('Data-WareHouse','data.pkl')
 
 
 @dataclass

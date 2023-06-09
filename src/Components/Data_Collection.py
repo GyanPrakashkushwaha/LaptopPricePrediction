@@ -5,12 +5,13 @@ from src.Components.Data_Classes import DataCollectionConfig
 from src.logger import logging
 import os
 from sklearn.model_selection import train_test_split
-# from src.components.data_transformation import DataTransformation
-# from src.components.model_trainer import TrainModel
+from src.utils import MainUtils
 
 class DataCollection:
     def __init__(self):
         self.data_collection_config = DataCollectionConfig()
+
+        self.utils = MainUtils()
 
 
     def initiate_data_collection(self):
@@ -24,6 +25,11 @@ class DataCollection:
             # making warehouse .......
 
             df.to_csv(path_or_buf=self.data_collection_config.raw_data_path,index=False,header=True)
+
+            logging.info('saving data in pickle file')
+
+            self.utils.save_obj(file_path=self.data_collection_config.predicton_data_path,obj=df)
+            
 
             logging.info('train test split initiated')
 
