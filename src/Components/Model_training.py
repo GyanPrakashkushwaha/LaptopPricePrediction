@@ -21,13 +21,25 @@ from src.logger import logging
 import pandas as pd
 from src.utils import MainUtils
 from src.Components.Data_Classes import ModelTrainerConfig
+from src.Components.Data_Collection import DataCollection
+from src.Components.Data_Transformation import DataTransformation
+import warnings
+warnings.filterwarnings('ignore')
+from sklearn.pipeline import Pipeline
+
+
+
+
+
+
+
 
 class ModelTrainer:
 
     def __init__(self,train_arr,test_arr):
 
         self.utils = MainUtils()
-        self.model_trainer_config = ModelTrainerConfig
+        self.model_trainer_config = ModelTrainerConfig()
 
         self.models = {
             "Random Forest": RandomForestRegressor(),
@@ -127,6 +139,59 @@ class ModelTrainer:
                     
         except Exception as e:
             raise CustomException(e, sys)
+        
+
+    # def preprocessor_obj(self):
+    #     try:
+    #         # making pickle file of transformation and model both combined file
+
+    #         self.obj = DataCollection()
+    #         self.obj.initiate_data_collection()
+
+    #         model = self.initiate_model_training()
+
+    #         train_df ,test_df=self.obj.initiate_data_collection()
+
+    #         data_trans = DataTransformation(train_data_path=train_df,test_data_path=test_df)
+
+    #         train_arr , test_arr ,_,preprocessor_obj=data_trans.initiate_data_transformation()
+
+    #         self.train_arr = train_arr
+    #         self.test_arr = test_arr
+    #         # self.preprocessor = preprocessor_file
+
+    #         self.X_train, self.X_test, self.y_train,self.y_test = (
+    #             train_arr[:,[0,1,2,3,5,6,7,8,9,10,11,12]],
+    #             test_arr[:,[0,1,2,3,5,6,7,8,9,10,11,12]],
+    #             train_arr[:,4],
+    #             test_arr[:,4]
+    #         )
+
+
+    #         preprocess_model = Pipeline(steps=[
+    #             ('preprocessor_obj',preprocessor_obj),
+    #             ('model',model)
+    #         ])
+
+    #         preprocess_model.fit_transform(self.X_train,self.X_test)
+
+    #         self.utils.save_obj(file_path=self.model_trainer_config.preprocessor_model_file_path,obj=preprocess_model)
+    #     #     preprocess_model = Pipeline(
+    #     #     steps=[
+    #     # ( 'preprocessor_obj',preprocessor_obj),
+    #     # ('votingRegressor',votingRegressor)
+    #     #     ]
+    #     # )
+    #     # preprocess_model.fit_transform(X_train,y_train)
+
+
+    #     except Exception as e:
+    #         raise CustomException(e,sys)
+
+
+
+
+    
     
 
 

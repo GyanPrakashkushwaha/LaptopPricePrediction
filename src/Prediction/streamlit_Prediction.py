@@ -68,6 +68,8 @@ if st.button('Predict Price'):
     # Perform preprocessing on the query data
     query_transformed = preprocessor.transform(query_df)
 
+    
+
     # Perform prediction using the model
     predicted_price = np.exp(model.predict(query_transformed))[0]
 
