@@ -140,7 +140,7 @@ class ModelTrainer:
         except Exception as e:
             raise CustomException(e, sys)
         
-
+    
     # def preprocessor_obj(self):
     #     try:
     #         # making pickle file of transformation and model both combined file
@@ -190,7 +190,9 @@ class ModelTrainer:
 
 
 
+if __name__=='__main__':
 
+    obj = ModelTrainer()
     
     
 

@@ -2,11 +2,12 @@ import streamlit as st
 import pickle
 import numpy as np
 import pandas as pd
+from src.utils import load_object
 
 # Load the trained model and data
 model = pickle.load(open('Data-WareHouse\model.pkl', 'rb'))
 df = pd.read_pickle('Data-WareHouse\data.pkl')
-preprocessor = pickle.load(open('Data-WareHouse\data_transformation\preprocessing.pkl', 'rb'))
+preprocessor = load_object(file_path='Data-WareHouse\data_transformation\preprocessing.pkl')
 
 st.title("Laptop Predictor")
 
@@ -67,8 +68,6 @@ if st.button('Predict Price'):
 
     # Perform preprocessing on the query data
     query_transformed = preprocessor.transform(query_df)
-
-    
 
     # Perform prediction using the model
     predicted_price = np.exp(model.predict(query_transformed))[0]

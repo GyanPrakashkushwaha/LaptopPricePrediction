@@ -2,7 +2,7 @@ import pickle
 import sys
 from src.exception import CustomException
 from src.logger import logging
-
+import dill
 
 class MainUtils:
     def __init__(self):
@@ -23,4 +23,10 @@ class MainUtils:
         except Exception as e :
             raise CustomException(e,sys)
         
-
+        
+def load_object(file_path):
+    try:
+        with open(file_path,mode='rb') as file_obj:
+            return dill.load(file_obj)
+    except Exception as e:
+        raise CustomException(e,sys)
