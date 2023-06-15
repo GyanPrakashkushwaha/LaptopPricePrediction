@@ -2,12 +2,10 @@ import streamlit as st
 import pickle
 import numpy as np
 import pandas as pd
-from src.utils import load_object
 
-# Load the trained model and data
-model = pickle.load(open('Data-WareHouse\model.pkl', 'rb'))
-df = pd.read_pickle('Data-WareHouse\data.pkl')
-preprocessor = load_object(file_path='Data-WareHouse\data_transformation\preprocessing.pkl')
+# Import the model
+model = pickle.load(open('notebook/model/preprocess_model.pkl', 'rb'))
+df = pickle.load(open('notebook/model/df.pkl', 'rb'))
 
 st.title("Laptop Predictor")
 
@@ -61,15 +59,10 @@ if st.button('Predict Price'):
     ppi = ((X_res ** 2) + (Y_res ** 2)) ** 0.5 / screen_size
 
     query = np.array([company, laptop_type, ram, weight, touchscreen_value, ips_value, ppi, cpu, hdd, ssd, gpu, os])
-    query_df = pd.DataFrame(data=[query], columns=df.columns.drop('Price'))
+    columns = df.drop('Price', axis=1).columns  # Exclude the 'Price' column
+    query_df = pd.DataFrame(data=query.reshape(1, -1), columns=columns)
 
-    # Select only the relevant columns from the query_df
-    query_df = query_df[df.columns.drop('Price')]
+    # Perform prediction using the preprocess_model Pipeline
+    predicted_price = np.exp(model.predict(query_df))[0]
 
-    # Perform preprocessing on the query data
-    query_transformed = preprocessor.transform(query_df)
-
-    # Perform prediction using the model
-    predicted_price = np.exp(model.predict(query_transformed))[0]
-
-    st.title(f"The predicted price of this configuration is {str(int(predicted_price))} Thousand")
+    st.title(f"The predicted price of this configuration is  {str(int(predicted_price))} Thousand")

@@ -57,7 +57,7 @@ class DataTransformation:
 
         cat_pipeline = Pipeline(
             steps=[
-                ('ohe',OneHotEncoder(sparse_output=False, # this will return me numpy array by the first time
+            ('ohe',OneHotEncoder(sparse_output=False, # this will return me numpy array by the first time
                 drop='first')),
                 ('imputer',SimpleImputer())])
                 
