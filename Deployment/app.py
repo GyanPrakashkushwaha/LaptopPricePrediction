@@ -2,12 +2,17 @@ import streamlit as st
 import pickle
 import numpy as np
 import pandas as pd
+from Deployment.design import remove
 
 # Import the model
 model = pickle.load(open('notebook/model/preprocess_model.pkl', 'rb'))
 df = pickle.load(open('notebook/model/df.pkl', 'rb'))
 
-st.title("Laptop Predictor")
+st.set_page_config(page_title="Laptop Price Prediction ", page_icon=":💻:", initial_sidebar_state="expanded")
+
+remove()
+
+st.title("Laptop Price Predictor")
 
 # Brand
 company = st.selectbox('Brand', df['Company'].unique())
